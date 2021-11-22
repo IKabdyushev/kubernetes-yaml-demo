@@ -1,0 +1,39 @@
+---
+# Source: application-deploy/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: demo
+spec:
+  # modify replicas according to your case
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          envFrom:
+            - secretRef:
+                name: demo-secret
+            - configMapRef:
+                name: demo-configmap
+          image: nginx:1.14.3
+          ports:
+            - containerPort: 80
+
+# kubectl get pods -o wide -w
+# kubectl get replicaset
+# kubetail -l app=nginx
+# wget curl http://demo.DNS
+# ipvsadm -ln | grep -B 4 -A 4 192.168.36.5

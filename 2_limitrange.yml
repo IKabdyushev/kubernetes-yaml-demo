@@ -1,0 +1,19 @@
+# Source: namespace-deploy/templates/limitrange.yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: demo-limitrange
+  namespace: demo
+spec:
+  limits:
+  - default:
+      memory: 256Mi
+    defaultRequest:
+      memory: 256Mi
+    min:
+      memory: 2Mi
+    max:
+      memory: 3Gi
+    type: Container
+
+# kubectl get limitrange

@@ -1,0 +1,15 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: debug
+  namespace: demo
+spec:
+  containers:
+    - name: debug
+      image: praqma/network-multitool 
+
+# kubectl get pod -o wide -w
+# kubectl exec -ti debug -- /bin/bash
+# curl http://nginx:80
+# kubectl get pod -o wide
+# curl http://<IP>

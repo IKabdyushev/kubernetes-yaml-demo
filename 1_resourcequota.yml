@@ -1,0 +1,13 @@
+---
+# Source: namespace-deploy/templates/resourcequota.yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  namespace: demo
+  name: demo-quota
+spec:
+  hard:
+    requests.memory: 1Gi
+    limits.memory: 2Gi
+
+# kubectl get resourcequotas

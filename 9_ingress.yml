@@ -1,0 +1,21 @@
+---
+# Source: application-deploy/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  namespace: demo
+  annotations:
+    kubernetes.io/ingress.class: CLASS
+spec:
+  rules:
+  - host: "demo.DNS"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-clusterip
+          servicePort: 80
+
+# kubectl get ingress
+# curl http://demo.DNS

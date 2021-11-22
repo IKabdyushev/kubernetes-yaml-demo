@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+  namespace: demo
+spec:
+  # modify replicas according to your case
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          envFrom:
+            - secretRef:
+                name: demo-secret
+            - configMapRef:
+                name: demo-configmap
+          image: nginx:1.14.3
+          ports:
+            - containerPort: 80
+
+# kubectl delete pod nginx-
+# kubectl delete replicaset nginx

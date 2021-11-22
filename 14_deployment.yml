@@ -1,0 +1,32 @@
+---
+# Source: application-deploy/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: demo
+spec:
+  # modify replicas according to your case
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          envFrom:
+            - secretRef:
+                name: demo-secret
+            - configMapRef:
+                name: demo-configmap
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+
+# kubectl get pods -o wide -w
+# kubectl get replicaset
+# curl http://demo.DNS

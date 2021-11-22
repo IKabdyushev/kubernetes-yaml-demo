@@ -1,0 +1,22 @@
+---
+# Source: application-deploy/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport
+  namespace: demo
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30111
+    protocol: TCP
+    name: http
+  selector:
+    app: nginx
+
+# kubectl get svc -o wide
+# curl nodeIP:30111
+# curl nodeIP:30111
+# kubectl logs nginx

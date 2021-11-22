@@ -1,0 +1,10 @@
+---
+# Source: namespace-deploy/templates/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+  labels:
+    name: demo
+
+# kubectl get ns | grep demo
